@@ -1,0 +1,46 @@
+
+<h2>Buckets</h2>
+<ul>
+  <h3>
+    <input [(ngModel)]="bucketName" type="text" placeholder="Bucket name">
+    <button (click)="createBucket()">Create</button></h3>
+  <table>
+    <tr>
+      <th>Delete</th>
+      <th>Bucket</th>
+      <th>Upload File</th>
+    </tr>
+    <tr *ngFor="let bucket of buckets">
+      <td><button class="delete-button" (click)="deleteBucket(bucket)"> X </button></td>
+      <td>{{ bucket }}</td>
+      <td><input type="file" (change)="uploadFile($event, bucket)" /></td>
+    </tr>
+  </table>
+</ul>
+
+<h2>Objects</h2>
+<h3>Choose bucket:
+<select [(ngModel)]="selectedBucket" (change)="getFiles()">
+  <option *ngFor="let bucket of buckets" [value]="bucket">{{ bucket }}</option>
+</select></h3>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Last Modified</th>
+    <th>Size</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let file of files">
+    <td>{{ file.name }}</td>
+    <td>{{ file.lastModified }}</td>
+    <td>{{ formatSize(file.size) }}</td>
+    <td>
+    <span class="action-buttons">
+        <button class="download-button" (click)="downloadFile(file.name)">Download</button>
+        /
+        <button class="delete-button1" (click)="deleteFile(file.name)">Delete</button>
+    </span>
+    </td>
+  </tr>
+</table>
+
